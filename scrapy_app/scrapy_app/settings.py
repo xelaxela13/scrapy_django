@@ -96,3 +96,6 @@ ITEM_PIPELINES = {
 
 import django
 django.setup()
+
+from pdb import set_trace
+__builtins__["st"] = set_trace
