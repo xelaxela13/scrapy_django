@@ -6,7 +6,8 @@
 # https://docs.scrapy.org/en/latest/topics/items.html
 
 from scrapy_djangoitem import DjangoItem
+from scrapyitem.models import TestScrapyModel
 
 
 class ScrapyAppItem(DjangoItem):
-    pass
+    django_model = TestScrapyModel
