@@ -14,6 +14,7 @@ from scrapyitem.models import TestScrapyModel
 class ScrapyResult(admin.ModelAdmin):
     actions = ('save_to_csv', 'save_to_xml', 'save_to_json')
     ordering = ('id',)
+    list_filter = ('domain', 'spider_name')
 
     def get_readonly_fields(self, request, obj=None):
         return [f.name for f in self.model._meta.get_fields() if f.name != 'id']
