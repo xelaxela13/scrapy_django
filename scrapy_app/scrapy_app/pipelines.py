@@ -10,4 +10,8 @@ from scrapyitem.models import TestScrapyModel
 class ScrapyAppPipeline(object):
 
     def process_item(self, item, spider):
-        return TestScrapyModel.objects.update_or_create(**item)[0]
+        domain = item.pop('domain', None)
+        url = item.pop('url', None)
+        return TestScrapyModel.objects.update_or_create(domain=domain,
+                                                        url=url,
+                                                        defaults=item)[0] if domain and url else None
