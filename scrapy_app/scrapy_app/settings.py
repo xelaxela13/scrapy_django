@@ -11,7 +11,7 @@
 
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.abspath('..')))
+sys.path.append(os.path.dirname(os.path.abspath('../scrapy_django')))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'scrapy_django.settings'
 
 BOT_NAME = 'scrapy_app'
