@@ -12,6 +12,8 @@ class ScrapyAppPipeline(object):
     def process_item(self, item, spider):
         domain = item.pop('domain', None)
         url = item.pop('url', None)
+        spider_name = item.pop('spider_name', None)
         return TestScrapyModel.objects.update_or_create(domain=domain,
                                                         url=url,
+                                                        spider_name=spider_name,
                                                         defaults=item)[0] if domain and url else None
