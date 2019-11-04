@@ -14,9 +14,9 @@ class ScrapyResult(admin.ModelAdmin):
     ordering = ('id',)
 
     def save_to_csv(self, request, queryset):
-        filename = self.model.__name__ + datetime.now().strftime('-%d-%m-%Y') + '.csv'
+        exclude_fields = {}
+        filename = 'results/' + self.model.__name__ + datetime.now().strftime('-%d-%m-%Y') + '.csv'
         with open(filename, 'w') as f:
-            exclude_fields = {'basescrapymodel_ptr_id', }
             fieldnames = [f.name for f in self.model._meta.get_fields() if f.name not in exclude_fields]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
