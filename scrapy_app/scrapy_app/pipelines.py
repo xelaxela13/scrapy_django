@@ -17,3 +17,9 @@ class ScrapyAppPipeline(object):
                                                         url=url,
                                                         spider_name=spider_name,
                                                         defaults=item)[0] if domain and url else None
+
+
+class ScrapyAppCreateOnlyPipeline(object):
+
+    def process_item(self, item, spider):
+        return TestScrapyModel.objects.create(**item)
