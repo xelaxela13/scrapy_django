@@ -2,3 +2,4 @@ django
 scrapy
 scrapy-djangoitem
 dicttoxml
+ipdb

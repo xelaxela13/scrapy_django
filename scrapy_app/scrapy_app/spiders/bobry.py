@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 import json
 from .basespider import BaseSpider
+from ipdb import set_trace
 
 
 class LinkedInSpider(BaseSpider):
     name = 'bobry'
     allowed_domains = ['bobry.ua']
     start_urls = [
-        'https://bobry.ua/calculator'
+        'https://bobry.ua/calculator',
+        'https://bobry.ua/ua/calculator'
     ]
 
     def parse(self, response):
@@ -19,9 +21,11 @@ class LinkedInSpider(BaseSpider):
         tmp = dict()
         sections = response.xpath('//div[contains(@id, "section")]')
         for section in sections:
-            tmp[section.xpath('h2/span/text()').get().strip()] = [i.strip() for i in
-                                                                  section.css('.work::text').extract()]
-        with open('res.json', 'w') as f:
+            names = [i.strip() for i in section.css('.work::text').extract()]
+            values = [i.strip() for i in section.css('.work-row span.hidden-xs::text').extract()]
+            tmp[section.xpath('h2/span/text()').get().strip()] = tuple(map(lambda *x: x, names, values))
+        filename = 'res_us.json' if response.url == 'https://bobry.ua/ua/calculator' else 'res.json'
+        with open(filename, 'w') as f:
             json_data = json.dumps(tmp, ensure_ascii=False)
             f.write(json_data)
         for key, value in tmp.items():
