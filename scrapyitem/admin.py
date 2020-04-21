@@ -44,6 +44,6 @@ class ScrapyResult(admin.ModelAdmin):
         filename = 'results/' + self.model.__name__ + datetime.now().strftime('-%d-%m-%Y') + '.json'
         fieldnames = [f.name for f in self.model._meta.get_fields() if f.name not in exclude_fields]
         with open(filename, 'w') as f:
-            json_data = json.dumps(list(queryset.values(*fieldnames)))
+            json_data = json.dumps(list(queryset.values(*fieldnames)), ensure_ascii=False)
             f.write(json_data)
             messages.add_message(request, messages.SUCCESS, f'{filename} was saved')
