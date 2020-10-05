@@ -4,7 +4,7 @@ from .basespider import BaseSpider
 from ipdb import set_trace
 
 
-class LinkedInSpider(BaseSpider):
+class Bobry(BaseSpider):
     name = 'bobry'
     allowed_domains = ['bobry.ua']
     start_urls = [
@@ -12,10 +12,10 @@ class LinkedInSpider(BaseSpider):
         'https://bobry.ua/ua/calculator'
     ]
 
-    def parse(self, response):
-        return self.parse_item(response)
+    def process_results(self, response, results):
+        return self.parse_item(response, results=results)
 
-    def parse_item(self, response):
+    def parse_item(self, response, **kwargs):
         super().parse_item(response)
         self.logger.info('RESPONSE URL: %s', response.url)
         tmp = dict()
@@ -31,5 +31,6 @@ class LinkedInSpider(BaseSpider):
         for key, value in tmp.items():
             for name in value:
                 self.item['f1'] = key
-                self.item['f2'] = name
+                self.item['f2'] = name[0]
+                self.item['f3'] = name[1]
                 yield self.item

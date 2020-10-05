@@ -18,6 +18,7 @@ class AbstractBaseScrapyModel(models.Model):
     f8 = models.TextField(blank=True, null=True)
     f9 = models.TextField(blank=True, null=True)
     f10 = models.TextField(blank=True, null=True)
+    created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.domain
