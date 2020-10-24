@@ -39,6 +39,7 @@ class Bobry(BaseSpider):
                         tmp2[i]['sub'][sub] = items
                         sub = tag.xpath('span/text()').get()
                         tmp2[i]['sub'].update({sub: []})
+                        items = []
                 if tag.xpath('name()').get() == 'div':
                     item = [i.strip() for i in tag.css('.work::text').extract()]
                     unit = [i.strip() for i in tag.css('.work-row span.hidden-xs::text').extract()]
